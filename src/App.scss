@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app {
+    min-height: 100vh;
+    background: linear-gradient(118.29deg, #DBE5FF -1.86%, #91AFFB 55.59%, #E3EBFF 102.19%);
+
+    .app__weather-container {
+        width: 30%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.weather-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(9px);
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+}

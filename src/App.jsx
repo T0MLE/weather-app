@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
+import WeatherDetails from "./WeatherDetails";
 
 function App() {
   const [weather, setWeather] = useState();
@@ -31,19 +32,17 @@ function App() {
   }, [weather]);
 
   return (
-    <div className="App">
-      <div>
+    <div className="app">
+      <div className="app__weather-container">
         {weather?.map((day, index) => {
           return (
-            <div key={index}>
-              <img
-                src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                alt=""
-              />
-              <p>{day.time}</p>
-              <p>{day.temp.max}</p>
-              <p>{day.temp.min}</p>
-            </div>
+            <WeatherDetails
+              key={index}
+              icon={day.weather[0].icon}
+              day={day.time}
+              tempMin={day.temp.min}
+              tempMax={day.temp.max}
+            />
           );
         })}
       </div>
