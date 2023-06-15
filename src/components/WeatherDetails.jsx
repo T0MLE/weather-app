@@ -26,7 +26,7 @@ export default WeatherDetails;
 
 WeatherDetails.propTypes = {
   icon: PropTypes.string,
-  day: PropTypes.string,
-  tempMin: PropTypes.string,
-  tempMax: PropTypes.string,
+  day: PropTypes.arrayOf(PropTypes.string),
+  tempMin: PropTypes.number,
+  tempMax: PropTypes.number,
 };
