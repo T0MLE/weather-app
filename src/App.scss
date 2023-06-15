@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+$font-family_1: "Inter", sans-serif;
+
+
 * {
     margin: 0;
     padding: 0;
@@ -7,25 +12,70 @@
 .app {
     min-height: 100vh;
     background: linear-gradient(118.29deg, #DBE5FF -1.86%, #91AFFB 55.59%, #E3EBFF 102.19%);
+    font-family: $font-family_1;
 
-    .app__weather-container {
+    .weather-container {
         width: 30%;
+        min-width: 412px;
         margin: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
+       .weather-card {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(9px);
+            border-radius: 20px;
+            margin: 20px;
+            padding: 20px;
+            &__icon-date {
+                display: flex;
+                img {
+                    width: 60px;
+                    height: 60px;
+                    margin-right: 20px;
+                }
+            }
+            &__date {
+                font-style: normal;
+                font-weight: 700;
+                p {
+                    font-size: 16px;
+                    line-height: 19px;
+                    color: #323232;
+                    &:nth-child(even){
+                        font-size: 30px;
+                        line-height: 36px;
+                    }
+                }
+            }
+            &__temp {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                align-items: center;
+                p {
+                    width: 45%;
+                    font-style: normal;
+                    &:nth-child(even) {
+                        color: #5887FF;
+                        font-weight: 700;
+                        text-align: end;
+                        font-size: 16px;
+                        padding: 4px 0;
+                    }
+                    &:nth-child(odd) {
+                        font-weight: 500;
+                        font-size: 10px;
+                        line-height: 12px;
+                        color: #323232;
+                    }
+                }
+            }
+        }
     }
-}
-
-.weather-details {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(9px);
-    border-radius: 20px;
-    margin: 20px;
-    padding: 20px;
 }

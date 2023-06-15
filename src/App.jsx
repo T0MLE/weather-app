@@ -7,19 +7,18 @@ function App() {
 
   useEffect(() => {
     fetch(
-      "https://api.openweathermap.org/data/2.5/forecast/daily?q=Paris&cnt=15&units=metric&appid=23e6a177430c319320a45c6676317398"
+      `https://api.openweathermap.org/data/2.5/forecast/daily?q=Paris&cnt=15&units=metric&appid=${import.meta.env.VITE_API_KEY}`
     )
       .then((response) => response.json())
       .then((response) => {
         let options = {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
+          weekday: "short",
           day: "numeric",
+          month: "long",
         };
         setWeather(
           response.list.map((e) => {
-            e.time = new Date(e.dt * 1000).toLocaleDateString("fr-FR", options);
+            e.time = new Date(e.dt * 1000).toLocaleDateString("en-US", options);
             return e;
           })
         );
@@ -27,21 +26,17 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    console.log(weather);
-  }, [weather]);
-
   return (
     <div className="app">
-      <div className="app__weather-container">
+      <div className="weather-container">
         {weather?.map((day, index) => {
           return (
             <WeatherDetails
               key={index}
               icon={day.weather[0].icon}
-              day={day.time}
-              tempMin={day.temp.min}
-              tempMax={day.temp.max}
+              day={day.time.split(", ").join(" ").split(" ")}
+              tempMin={Math.round(day.temp.min)}
+              tempMax={Math.round(day.temp.max)}
             />
           );
         })}
