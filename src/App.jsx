@@ -4,11 +4,13 @@ import RangeInput from "./components/RangeInput";
 import WeatherDetails from "./components/WeatherDetails";
 
 function App() {
-  const [weather, setWeather] = useState();
+  const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState({
     minTemp: 0,
-    maxTemp: 30,
+    maxTemp: 35,
   });
+
+  const [filteredWeather, setFilteredWeather] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -33,22 +35,36 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    console.log(weather);
+    console.log(temp);
+    setFilteredWeather(
+      weather.filter((day) => {
+        return (
+          Math.round(day.temp.min) >= temp.minTemp &&
+          Math.round(day.temp.max) <= temp.maxTemp
+        );
+      })
+    );
+    console.log(filteredWeather);
+  }, [weather.length, temp]);
+
   return (
     <div className="app">
       <div className="weather-container">
         <h1 className="weather-container__title">Weather forecast</h1>
         <p className="weather-container__subtitle">NEXT 15 DAYS</p>
         <div className="inputs-container">
-          <RangeInput minMax={"MIN"} temp={temp} setTemp={setTemp} />
-          <RangeInput minMax={"MAX"} temp={temp} setTemp={setTemp} />
+          <RangeInput minMax={"min"} temp={temp} setTemp={setTemp} />
+          <RangeInput minMax={"max"} temp={temp} setTemp={setTemp} />
         </div>
 
-        {weather?.map((day, index) => {
+        {filteredWeather?.map((day, index) => {
           return (
             <WeatherDetails
               key={index}
               icon={day.weather[0].icon}
-              day={day.time.split(", ").join(" ").split(" ")}
+              day={day.time.replace(",", ".").split(" ")}
               tempMin={Math.round(day.temp.min)}
               tempMax={Math.round(day.temp.max)}
             />

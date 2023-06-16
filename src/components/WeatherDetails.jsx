@@ -6,7 +6,7 @@ function WeatherDetails({ icon, day, tempMin, tempMax }) {
       <div className="weather-card__icon-date">
         <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="" />
         <div className="weather-card__date">
-          <p>{day[0].toLowerCase()}.</p>
+          <p>{day[0].toLowerCase()}</p>
           <p>{day[2]}</p>
           <p>{day[1].toLowerCase()}</p>
         </div>
