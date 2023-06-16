@@ -13,6 +13,8 @@ function App() {
 
   const [filteredWeather, setFilteredWeather] = useState([]);
   const [averageTemp, setAverageTemp] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState(1);
 
   useEffect(() => {
     fetch(
@@ -51,7 +53,19 @@ function App() {
       0
     );
     setAverageTemp(Math.round(sumTemp / (filteredWeather.length * 2)));
+    setPages(Math.ceil(filteredWeather.length / 5) || 1);
   }, [weather.length, temp, filteredWeather.length]);
+
+  const getCards = () => {
+    const cardsPerPage = 5;
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    return filteredWeather.slice(indexOfFirstCard, indexOfLastCard);
+  };
+
+  const handleClick = (nb) => {
+    setCurrentPage((prevstate) => prevstate + nb);
+  };
 
   return (
     <div className="app">
@@ -77,7 +91,7 @@ function App() {
           />
         </div>
 
-        {filteredWeather?.map((day, index) => {
+        {getCards().map((day, index) => {
           return (
             <WeatherDetails
               key={index}
@@ -88,9 +102,25 @@ function App() {
             />
           );
         })}
-        <p className='weather-container__average'>
+        <p className="weather-container__average">
           {filteredWeather.length ? `AVERAGE TEMP : ${averageTemp}°C` : null}
         </p>
+        <div className="buttons-container">
+          <button
+            className={currentPage < 2 ? "buttons-container__previous" : null}
+            onClick={() => currentPage > 1 && handleClick(-1)}
+          >
+            previous
+          </button>
+          <button
+            className={
+              currentPage === pages ? "buttons-container__previous" : null
+            }
+            onClick={() => currentPage < pages && handleClick(1)}
+          >
+            next
+          </button>
+        </div>
       </div>
     </div>
   );

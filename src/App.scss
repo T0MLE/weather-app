@@ -161,5 +161,48 @@ $font-family_1: "Inter", sans-serif;
             align-self: flex-start;
             margin-top: 15px;
         }
+        .buttons-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            button {
+                all: unset;
+                background-color: transparent;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 19px;
+                text-transform: uppercase;
+                color: #FFFFFF;
+                margin: 24px 0 40px 0;
+            }
+
+
+            &__previous {
+                    opacity: 0.3 !important;
+                
+            }
+            &__next {
+                opacity: 0.3 !important;
+            
+        }
+        }
+
+    }
+}
+@media screen and (max-width: 450px) {
+    .app {
+        .weather-container {
+            min-width: 90%;
+            width: 90%;
+            .inputs-container {
+
+                .input-container {
+
+                    input {
+                            width: initial;
+                    }
+                }
+            }
+        }
     }
 }
