@@ -194,12 +194,26 @@ $font-family_1: "Inter", sans-serif;
         .weather-container {
             min-width: 90%;
             width: 90%;
+            &__title {
+                font-size: 36px;
+            }
             .inputs-container {
 
                 .input-container {
+                    width: 45%;
 
                     input {
                             width: initial;
+                    }
+                }
+            }
+
+            .weather-card {
+                &__temp {
+                    p {
+                        &:nth-child(odd) {
+                            text-align: end;
+                        }
                     }
                 }
             }
