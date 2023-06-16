@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import "./App.scss";
 import RangeInput from "./components/RangeInput";
@@ -11,6 +12,7 @@ function App() {
   });
 
   const [filteredWeather, setFilteredWeather] = useState([]);
+  const [averageTemp, setAverageTemp] = useState(0);
 
   useEffect(() => {
     fetch(
@@ -36,8 +38,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(weather);
-    console.log(temp);
     setFilteredWeather(
       weather.filter((day) => {
         return (
@@ -46,8 +46,12 @@ function App() {
         );
       })
     );
-    console.log(filteredWeather);
-  }, [weather.length, temp]);
+    const sumTemp = filteredWeather.reduce(
+      (acc, day) => acc + day.temp.min + day.temp.max,
+      0
+    );
+    setAverageTemp(Math.round(sumTemp / (filteredWeather.length * 2)));
+  }, [weather.length, temp, filteredWeather.length]);
 
   return (
     <div className="app">
@@ -55,8 +59,22 @@ function App() {
         <h1 className="weather-container__title">Weather forecast</h1>
         <p className="weather-container__subtitle">NEXT 15 DAYS</p>
         <div className="inputs-container">
-          <RangeInput minMax={"min"} temp={temp} setTemp={setTemp} />
-          <RangeInput minMax={"max"} temp={temp} setTemp={setTemp} />
+          <RangeInput
+            minMax={"min"}
+            temp={temp}
+            setTemp={setTemp}
+            averageTemp={averageTemp}
+            setAverageTemp={setAverageTemp}
+            filteredWeather={filteredWeather}
+          />
+          <RangeInput
+            minMax={"max"}
+            temp={temp}
+            setTemp={setTemp}
+            averageTemp={averageTemp}
+            setAverageTemp={setAverageTemp}
+            filteredWeather={filteredWeather}
+          />
         </div>
 
         {filteredWeather?.map((day, index) => {
@@ -70,6 +88,9 @@ function App() {
             />
           );
         })}
+        <p className='weather-container__average'>
+          {filteredWeather.length ? `AVERAGE TEMP : ${averageTemp}°C` : null}
+        </p>
       </div>
     </div>
   );

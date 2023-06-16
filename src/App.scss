@@ -113,6 +113,8 @@ $font-family_1: "Inter", sans-serif;
                     width: 60px;
                     height: 60px;
                     margin-right: 20px;
+                    align-self: center;
+
                 }
             }
             &__date {
@@ -151,6 +153,13 @@ $font-family_1: "Inter", sans-serif;
                     }
                 }
             }
+        }
+        &__average {
+            font-weight: 700;
+            font-size: 13px;
+            color: #323232;
+            align-self: flex-start;
+            margin-top: 15px;
         }
     }
 }

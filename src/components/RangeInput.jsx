@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 
-function RangeInput({ minMax, temp, setTemp }) {
+function RangeInput({
+  minMax,
+  temp,
+  setTemp,
+}) {
   const handleChange = (e) => {
     if (minMax === "min" && e.target.value > temp.maxTemp) {
       return;
