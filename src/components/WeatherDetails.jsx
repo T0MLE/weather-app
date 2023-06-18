@@ -4,7 +4,10 @@ function WeatherDetails({ icon, day, tempMin, tempMax }) {
   return (
     <div className="weather-card">
       <div className="weather-card__icon-date">
-        <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="" />
+        <img
+          src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+          alt="picture representing today's weather"
+        />
         <div className="weather-card__date">
           <p>{day[0].toLowerCase()}</p>
           <p>{day[2]}</p>
@@ -17,7 +20,6 @@ function WeatherDetails({ icon, day, tempMin, tempMax }) {
         <p>MAX TEMP</p>
         <p>{tempMax}°C</p>
       </div>
-
     </div>
   );
 }

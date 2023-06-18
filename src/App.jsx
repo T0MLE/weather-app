@@ -6,13 +6,15 @@ import WeatherDetails from "./components/WeatherDetails";
 
 function App() {
   const [weather, setWeather] = useState([]);
+  const [filteredWeather, setFilteredWeather] = useState([]);
+
   const [temp, setTemp] = useState({
     minTemp: 0,
-    maxTemp: 35,
+    maxTemp: 40,
   });
 
-  const [filteredWeather, setFilteredWeather] = useState([]);
   const [averageTemp, setAverageTemp] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState(1);
 
@@ -31,7 +33,7 @@ function App() {
         };
         setWeather(
           response.list.map((e) => {
-            e.time = new Date(e.dt * 1000).toLocaleDateString("en-US", options);
+            e.time = new Date(e.dt * 1000).toLocaleDateString("en-US", options); // add date string to weather object
             return e;
           })
         );
@@ -40,6 +42,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // filter the weather according to the temperatures selected with the inputs
     setFilteredWeather(
       weather.filter((day) => {
         return (
@@ -48,14 +51,21 @@ function App() {
         );
       })
     );
+
+    // sum all the temperatures
     const sumTemp = filteredWeather.reduce(
       (acc, day) => acc + day.temp.min + day.temp.max,
       0
     );
+
+    // average all temperatures
     setAverageTemp(Math.round(sumTemp / (filteredWeather.length * 2)));
+
+    // calculate how many pages it takes to display all the temperatures
     setPages(Math.ceil(filteredWeather.length / 5) || 1);
   }, [weather.length, temp, filteredWeather.length]);
 
+  // get 5 cards per page
   const getCards = () => {
     const cardsPerPage = 5;
     const indexOfLastCard = currentPage * cardsPerPage;
@@ -63,8 +73,9 @@ function App() {
     return filteredWeather.slice(indexOfFirstCard, indexOfLastCard);
   };
 
-  const handleClick = (nb) => {
-    setCurrentPage((prevstate) => prevstate + nb);
+  // go to next or previous page on click
+  const handlePagination = (nb) => {
+    setCurrentPage((current) => current + nb);
   };
 
   return (
@@ -80,6 +91,7 @@ function App() {
             averageTemp={averageTemp}
             setAverageTemp={setAverageTemp}
             filteredWeather={filteredWeather}
+            setCurrentPage={setCurrentPage}
           />
           <RangeInput
             minMax={"max"}
@@ -88,6 +100,7 @@ function App() {
             averageTemp={averageTemp}
             setAverageTemp={setAverageTemp}
             filteredWeather={filteredWeather}
+            setCurrentPage={setCurrentPage}
           />
         </div>
 
@@ -107,16 +120,22 @@ function App() {
         </p>
         <div className="buttons-container">
           <button
-            className={currentPage < 2 ? "buttons-container__previous" : null}
-            onClick={() => currentPage > 1 && handleClick(-1)}
+            className={
+              currentPage < 2
+                ? "buttons-container__button buttons-container__button--opacity"
+                : "buttons-container__button"
+            }
+            onClick={() => currentPage > 1 && handlePagination(-1)}
           >
             previous
           </button>
           <button
             className={
-              currentPage === pages ? "buttons-container__previous" : null
+              currentPage === pages
+                ? "buttons-container__button buttons-container__button--opacity"
+                : "buttons-container__button"
             }
-            onClick={() => currentPage < pages && handleClick(1)}
+            onClick={() => currentPage < pages && handlePagination(1)}
           >
             next
           </button>
