@@ -19,3 +19,8 @@ This app displays weather forecasts for the next 15 days in Paris. It is possibl
    ```js
    VITE_API_KEY=yourapikey;
    ```
+   
+## Start
+   ```sh
+   npm run dev
+   ```
