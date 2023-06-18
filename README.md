@@ -15,7 +15,7 @@ This app displays weather forecasts for the next 15 days in Paris. It is possibl
    ```sh
    npm install
    ```
-4. Enter your API in `.env`
+4. Enter your API key in `.env`
    ```js
    VITE_API_KEY=yourapikey;
    ```
