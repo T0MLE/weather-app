@@ -79,7 +79,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <>
       <div className="weather-container">
         <h1 className="weather-container__title">Weather forecast</h1>
         <p className="weather-container__subtitle">NEXT 15 DAYS</p>
@@ -141,7 +141,7 @@ function App() {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
