@@ -9,6 +9,7 @@ $second-color : #323232;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select : none;
 }
 
 body {
@@ -17,8 +18,7 @@ body {
     font-family: $font-family_1;
 
     .weather-container {
-        width: 30%;
-        min-width: 412px;
+        width: 412px;
         margin: auto;
         display: flex;
         flex-direction: column;
@@ -208,7 +208,6 @@ body {
 @media screen and (max-width: 450px) {
     body {
         .weather-container {
-            min-width: 90%;
             width: 90%;
             
             &__title {

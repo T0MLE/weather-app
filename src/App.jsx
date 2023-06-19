@@ -63,6 +63,7 @@ function App() {
 
     // calculate how many pages it takes to display all the temperatures
     setPages(Math.ceil(filteredWeather.length / 5) || 1);
+    
   }, [weather.length, temp, filteredWeather.length]);
 
   // get 5 cards per page
